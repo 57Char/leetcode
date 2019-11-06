@@ -36,3 +36,17 @@ func rotateV2(nums []int, k int) {
 	copy(newNums[k:], nums[:l-k])
 	copy(nums, newNums)
 }
+
+func rotateV3(nums []int, k int) {
+	l := len(nums)
+	if l <= 1 || k <= 0 {
+		return
+	}
+
+	k = k % l
+	if k == 0 {
+		return
+	}
+
+	copy(nums, append(nums[l-k:], nums[:l-k]...))
+}
