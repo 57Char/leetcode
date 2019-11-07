@@ -2,10 +2,9 @@ package algorithms
 
 // https://leetcode.com/problems/merge-two-sorted-lists/description/
 
-type ListNode struct {
-	Val  int
-	Next *ListNode
-}
+import (
+	"fmt"
+)
 
 func mergeTwoLists(l1 *ListNode, l2 *ListNode) *ListNode {
 	if l1 == nil {
@@ -20,4 +19,42 @@ func mergeTwoLists(l1 *ListNode, l2 *ListNode) *ListNode {
 	}
 	l2.Next = mergeTwoLists(l1, l2.Next)
 	return l2
+}
+
+func NewListNode(vals ...int) *ListNode {
+	if len(vals) == 0 {
+		return nil
+	}
+
+	v := vals[0]
+
+	l := &ListNode{
+		Val: v,
+	}
+
+	if len(vals) > 1 {
+		l.Next = NewListNode(vals[1:]...)
+	}
+
+	return l
+}
+
+type ListNode struct {
+	Val  int
+	Next *ListNode
+}
+
+func (l *ListNode) String() string {
+	vals := []int{l.Val}
+
+	ln := l
+	for {
+		ln = ln.Next
+		if ln == nil {
+			break
+		}
+		vals = append(vals, ln.Val)
+	}
+
+	return fmt.Sprintf("%v", vals)
 }
